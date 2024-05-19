@@ -379,7 +379,7 @@ F2D70000000049454E44AE42608200", "hex");
             const fs = __nccwpck_require__(147);
             fs.writeFileSync('installer_background.png', b1);
             core.debug(new Date().toTimeString());
-            yield (0, exec_1.exec)(`create-dmg --volname "${name}" --background "installer_background.png" --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 ${name}.dmg ${srcdir}`);
+            yield (0, exec_1.exec)(`create-dmg --volname "${name}" --background "installer_background.png" --window-pos 200 120 --window-size 800 450 --icon-size 100 --icon ${name}.app 200 185 --app-drop-link 600 185 ${name}.dmg ${srcdir}`);
             core.debug(new Date().toTimeString());
             core.setOutput('time', new Date().toTimeString());
         }
