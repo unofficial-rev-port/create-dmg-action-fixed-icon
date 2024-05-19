@@ -1,5 +1,5 @@
-name: 'create-dmg-action'
-description: 'Create dmg for macos'
+name: 'create-dmg-action-fixed-icon'
+description: 'Create DMG for macOS (Fixed icon location)'
 author: 'QQxiaoming(2014500726@smail.xtu.edu.cn)'
 inputs:
   srcdir:
