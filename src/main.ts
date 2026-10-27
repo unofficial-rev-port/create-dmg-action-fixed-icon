@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { exec } from "@actions/exec";
+import {exec} from '@actions/exec'
 
 async function run(): Promise<void> {
   try {
@@ -9,10 +9,11 @@ async function run(): Promise<void> {
     core.debug(`name = ${name} `)
 
     core.debug(new Date().toTimeString())
-    await exec(`brew install create-dmg`);
+    await exec(`brew install create-dmg`)
     core.debug(new Date().toTimeString())
 
-    const b1 = Buffer.from("\
+    const b1 = Buffer.from(
+      '\
 89504E470D0A1A0A0000000D49484452\
 000003200000014608060000009242FB\
 06000000097048597300000B1300000B\
@@ -336,12 +337,16 @@ BCCFE3C3D14300982F0102C08F799064\
 65040800005046800000006504080000\
 50468000000065040800005046800000\
 00650408000050E67F019BA84938CD03\
-F2D70000000049454E44AE42608200", "hex");
-    const fs = require('fs');
-    fs.writeFileSync('installer_background.png', b1);
+F2D70000000049454E44AE42608200',
+      'hex'
+    )
+    const fs = require('fs')
+    fs.writeFileSync('installer_background.png', b1)
 
     core.debug(new Date().toTimeString())
-    await exec(`create-dmg --volname "${name}" --background "installer_background.png" --window-pos 200 120 --window-size 800 450 --icon-size 100 --icon ${name}.app 200 185 --app-drop-link 600 185 ${name}.dmg ${srcdir}`);
+    await exec(
+      `create-dmg --volname "${name}" --background "installer_background.png" --window-pos 200 120 --window-size 800 450 --icon-size 100 --icon ${name}.app 200 185 --app-drop-link 600 185 ${name}.dmg ${srcdir}`
+    )
     core.debug(new Date().toTimeString())
 
     core.setOutput('time', new Date().toTimeString())
