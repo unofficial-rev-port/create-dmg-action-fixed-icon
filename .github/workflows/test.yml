@@ -1,5 +1,5 @@
 name: 'build-test'
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
@@ -7,20 +7,11 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
+  test:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
-      - run: |
-          npm install
-          npm run build && npm run package
-
-  test: # make sure the action works on a clean machine without building
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v7
-      - run: |
-          mkdir test.app
+      - run: mkdir test.app
       - uses: ./
         with:
           name: test
@@ -28,7 +19,5 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: test
-          path: |
-            ./test.dmg
-      - run: |
-          sudo hdiutil attach ./test.dmg
+          path: ./test.dmg
+      - run: sudo hdiutil attach ./test.dmg

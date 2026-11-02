@@ -9,5 +9,25 @@ inputs:
     description: 'dmg name'
     default: 'target'
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        SRCDIR: ${{ inputs.srcdir }}
+        NAME: ${{ inputs.name }}
+        BACKGROUND: ${{ github.action_path }}/installer_background.png
+      run: |
+        set -euo pipefail
+
+        brew install create-dmg
+
+        create-dmg \
+          --volname "$NAME" \
+          --background "$BACKGROUND" \
+          --window-pos 200 120 \
+          --window-size 800 450 \
+          --icon-size 100 \
+          --icon "$NAME.app" 200 185 \
+          --app-drop-link 600 185 \
+          "$NAME.dmg" \
+          "$SRCDIR"
